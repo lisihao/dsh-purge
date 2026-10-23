@@ -1,4 +1,4 @@
-# 1.6.38-solar.1
+# 1.6.48
 
 Personal fork of Community v1.6.38, maintained at https://github.com/lisihao/dsh-purge.
 

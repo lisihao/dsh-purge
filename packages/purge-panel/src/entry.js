@@ -44,14 +44,10 @@ export function PanelOverlays() {
     react.Fragment,
     null,
     h("style", null, PURGE_CSS),
-    // Restored from 1.1.71 apply(): shell.overlay carried the welcome notice
-    // and the red-team environment gate next to the dock.
+    // Only the first-run and explicit authorization dialogs remain global.
     h(WelcomeNotice, {
-      repo: __COMMUNITY__
-        ? "https://github.com/kingcharleslzy-ai/dsh-purge"
-        : undefined,
+      repo: __COMMUNITY__ ? "https://github.com/lisihao/dsh-purge" : undefined,
     }),
-    h(EnvAdaptSendGate),
     st.authOpen ? h(AuthGate, { pending: st.pending }) : null,
   );
 }
@@ -79,19 +75,33 @@ export function apply(ctx) {
       PanelOverlays,
     ),
   );
-  // 左侧栏入口：图标 + 整页。右侧抽屉不再注册，避免两处重复。
-  ctx.slots.inject("sidebar.panellist", () =>
+  // Keep environment guidance in the current composer, outside shell.overlay.
+  ctx.slots.inject("conversation.composer.dock", () =>
     ctx.slots.register(
       {
-        name: "sidebar.panellist",
-        id: "dsh-purge",
-        order: 30,
-        label: __COMMUNITY__ ? "Purge" : "Purge",
-        inject: () => ({ t }),
+        name: "conversation.composer.dock",
+        id: "dsh-purge-env-gate",
+        order: 10,
       },
-      PurgeGlyphIcon,
+      EnvAdaptSendGate,
     ),
   );
+  // This personal fork keeps the existing dsh-purge-rightbar adapter as its entry.
+  // The keyed main page below remains available to that adapter.
+  if (!__COMMUNITY__) {
+    ctx.slots.inject("sidebar.panellist", () =>
+      ctx.slots.register(
+        {
+          name: "sidebar.panellist",
+          id: "dsh-purge",
+          order: 30,
+          label: "Purge",
+          inject: () => ({ t }),
+        },
+        PurgeGlyphIcon,
+      ),
+    );
+  }
   ctx.slots.inject("main", () =>
     ctx.slots.register(
       {

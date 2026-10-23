@@ -7,7 +7,7 @@ import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { pathToFileURL } from "node:url";
 const exec = promisify(execFile);
-const repo = "kingcharleslzy-ai/dsh-purge";
+const repo = "lisihao/dsh-purge";
 const hosts = new Set(["api.github.com", "github.com", "release-assets.githubusercontent.com", "objects.githubusercontent.com"]);
 
 async function get(url, limit, request) {

@@ -48,7 +48,9 @@ export function isRedteamModeActive() {
             ? sessions.list.getSnapshot()
             : null;
         const sess = snap && snap.byId ? snap.byId[sid] : null;
-        if (isRedteamPresetId(readSessionAgentPreset(sess))) return true;
+        const preset = readSessionAgentPreset(sess);
+        // A known current preset wins over labels in unrelated or hidden panels.
+        if (preset) return isRedteamPresetId(preset);
       } catch {
         /* ignore */
       }
@@ -65,7 +67,8 @@ export function isRedteamModeActive() {
           face && typeof face.getSnapshot === "function"
             ? face.getSnapshot()
             : face;
-        if (isRedteamPresetId(readSessionAgentPreset(faceSnap))) return true;
+        const preset = readSessionAgentPreset(faceSnap);
+        if (preset) return isRedteamPresetId(preset);
       } catch {
         /* ignore */
       }

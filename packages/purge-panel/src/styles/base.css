@@ -1140,3 +1140,65 @@ body:not([data-ds-dark-theme]) .dshpp-auth-ops button.primary {
     color-mix(in srgb, var(--dsw-alias-brand-primary, #6dbf8c) 28%, transparent);
 }
 /* 玻璃跟随宿主颜色。字重和底的不透明度分开：壳透，字坐在更实的一层上。 */
+
+/* Environment guidance participates in composer layout; no backdrop or hit layer. */
+.dshpp-env-gate {
+  box-sizing: border-box;
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--dsw-alias-border-l1, #888);
+  border-radius: 8px;
+  background: var(--dsw-alias-bg-layer-1, Canvas);
+  color: var(--dsw-alias-label-primary, CanvasText);
+  font: 13px/1.5 var(--ds-font-sans, system-ui, sans-serif);
+  overflow-wrap: anywhere;
+}
+.dshpp-env-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+}
+.dshpp-env-content > div {
+  grid-column: 1 / -1;
+}
+.dshpp-env-content strong {
+  align-self: center;
+  font-size: 13px;
+}
+.dshpp-env-ops {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.dshpp-env-gate button {
+  font: inherit;
+  color: inherit;
+  border: 1px solid var(--dsw-alias-border-l1, #888);
+  border-radius: 6px;
+  background: transparent;
+  padding: 5px 8px;
+  cursor: pointer;
+}
+.dshpp-env-gate button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+.dshpp-env-gate button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.dshpp-env-gate .dshpp-env-close {
+  border: 0;
+  padding: 0 4px;
+}
+.dshpp-env-warn {
+  font-weight: 500;
+}
+@media (max-width: 640px) {
+  .dshpp-env-ops button {
+    min-height: 44px;
+  }
+}

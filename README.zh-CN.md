@@ -1,3 +1,17 @@
+# Personal Purge fork
+
+This fork is maintained in `lisihao/dsh-purge`. It starts from the MIT-licensed Community 1.6.38 source (commit `3a897dd977dbb222e46bae140f2e7d37b456d13c`). Original authors and notices remain credited below and in LICENSE / NOTICE.md.
+
+The environment reminder now appears inside the current conversation composer. It has no global backdrop, can be dismissed without changing environment settings, and clears when leaving that conversation or red-team mode. Ordinary conversations use their actual current preset rather than unrelated red-team labels elsewhere in the app.
+
+This fork preserves the existing `dsh-purge-rightbar` adapter and its keyed Purge page; it does not add a duplicate left-sidebar entry. The adapter is separately installed and is not bundled here.
+
+For this fork, use the versioned package and SHA256SUMS from [our Releases](https://github.com/lisihao/dsh-purge/releases). The historical installer links below describe the community baseline, not this fork's installation channel. The built-in updater now queries this repository. Plugin installation does not authorize or require applying host patches.
+
+Verification for the environment notice is keyless: `npm run build:client`, `npm run check:client`, `npm run test:env-gate`, and `npm run test:ui`. Installed-app verification is recorded separately in the release notes; source tests alone do not establish it.
+
+---
+
 <div align="center">
 
 # Purge Community
@@ -9,7 +23,7 @@
 [![Release](https://img.shields.io/github/v/release/kingcharleslzy-ai/dsh-purge?label=release)](https://github.com/kingcharleslzy-ai/dsh-purge/releases)
 [![Checks](https://github.com/kingcharleslzy-ai/dsh-purge/actions/workflows/community.yml/badge.svg)](https://github.com/kingcharleslzy-ai/dsh-purge/actions/workflows/community.yml)
 
-当前版本 **1.6.38** · 适配 **DSH Desktop 0.2.1-rc.2**（rc.1 同样通过） · [English](docs/README.en.md)
+当前版本 **1.6.38-solar.1** · 适配 **DSH Desktop 0.2.1-rc.2**（rc.1 同样通过） · [English](docs/README.en.md)
 
 </div>
 

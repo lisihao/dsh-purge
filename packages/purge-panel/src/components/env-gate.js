@@ -46,6 +46,7 @@ export function EnvAdaptSendGate() {
   const [status, setStatus] = useState(null);
   const [busy, setBusy] = useState(false);
   const cacheRef = useRef({ at: 0, ready: false });
+  const noticeSessionRef = useRef(null);
 
   const refresh = useCallback(async () => {
     const r = await fetchEnvAdaptStatus();
@@ -69,6 +70,7 @@ export function EnvAdaptSendGate() {
       return true;
     }
     /* 已授权过：只弹精简环境适配窗，不再自动拉开整块演练台 */
+    noticeSessionRef.current = currentSessionId(hostSessions());
     setOpen(true);
     return true;
   }, [refresh]);
@@ -117,6 +119,14 @@ export function EnvAdaptSendGate() {
       try {
         const sessions = hostSessions();
         const sid = currentSessionId(sessions);
+        if (
+          noticeSessionRef.current !== null &&
+          (noticeSessionRef.current !== sid || !isRedteamModeActive())
+        ) {
+          noticeSessionRef.current = null;
+          setOpen(false);
+          setConfirmSkip(false);
+        }
         if (!sid) return;
         patchShell(conversationInput(sid));
       } catch {
@@ -186,6 +196,11 @@ export function EnvAdaptSendGate() {
         e.stopImmediatePropagation();
     };
     const onKey = (e) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        setConfirmSkip(false);
+        return;
+      }
       if (e.key !== "Enter" || e.shiftKey || e.isComposing) return;
       const target = e.target;
       const inComposer =
@@ -222,14 +237,27 @@ export function EnvAdaptSendGate() {
   return h(
     "div",
     {
-      className: "dshp-auth-mask dshp-env-gate",
-      role: "dialog",
-      "aria-modal": "true",
+      className: "dshpp-env-gate dshp-env-gate",
+      role: "status",
+      "aria-label": t("envGate.title"),
     },
     h(
       "div",
-      { className: "dshp-auth-modal", style: { width: "min(480px,100%)" } },
-      h("h2", null, t("envGate.title")),
+      { className: "dshpp-env-content" },
+      h("strong", null, t("envGate.title")),
+      h(
+        "button",
+        {
+          type: "button",
+          className: "dshpp-env-close",
+          "aria-label": t("envGate.close"),
+          onClick: () => {
+            setOpen(false);
+            setConfirmSkip(false);
+          },
+        },
+        t("envGate.close"),
+      ),
       h("div", { style: { fontSize: 13, lineHeight: 1.55 } }, message),
       h(
         "div",
@@ -243,11 +271,11 @@ export function EnvAdaptSendGate() {
         t("envGate.kaliHint"),
       ),
       confirmSkip
-        ? h("div", { className: "dshp-auth-warn" }, t("envGate.skipConfirm"))
+        ? h("div", { className: "dshpp-env-warn" }, t("envGate.skipConfirm"))
         : null,
       h(
         "div",
-        { className: "dshp-auth-ops" },
+        { className: "dshpp-env-ops" },
         confirmSkip
           ? [
               h(

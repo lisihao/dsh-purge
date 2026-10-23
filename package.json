@@ -1,6 +1,6 @@
 {
   "name": "dsh-purge-community",
-  "version": "1.6.38",
+  "version": "1.6.38-solar.1",
   "description": "让 AI 更专注地辅助学习与动手实验：DSH 附加组件，提供状态自检、提示词与规则管理、本机备份与回滚。",
   "type": "module",
   "main": "lib/index.js",
@@ -49,7 +49,8 @@
     "check:docs": "node scripts/check-docs.mjs",
     "smoke": "npm pack --ignore-scripts && node scripts/smoke.mjs",
     "test:electron": "node scripts/check-electron-selfcheck.mjs && node scripts/check-electron-diagnostic-target.mjs && node scripts/check-macos-handoff.mjs",
-    "build:market": "node scripts/build-market.mjs"
+    "build:market": "node scripts/build-market.mjs",
+    "test:env-gate": "node --test packages/purge-panel/test/env-gate.test.cjs"
   },
   "license": "MIT",
   "keywords": [
@@ -72,11 +73,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kingcharleslzy-ai/dsh-purge.git"
+    "url": "git+https://github.com/lisihao/dsh-purge.git"
   },
-  "homepage": "https://github.com/kingcharleslzy-ai/dsh-purge#readme",
+  "homepage": "https://github.com/lisihao/dsh-purge#readme",
   "bugs": {
-    "url": "https://github.com/kingcharleslzy-ai/dsh-purge/issues"
+    "url": "https://github.com/lisihao/dsh-purge/issues"
   },
   "dsh": {
     "bundle": {
@@ -95,8 +96,8 @@
     },
     "install": {
       "preferred": "tarball",
-      "tarball": "https://github.com/kingcharleslzy-ai/dsh-purge/releases/latest/download/dsh-purge-community-1.6.38.tgz",
-      "git": "https://github.com/kingcharleslzy-ai/dsh-purge.git"
+      "tarball": "https://github.com/lisihao/dsh-purge/releases/download/v1.6.38-solar.1/dsh-purge-community-1.6.38-solar.1.tgz",
+      "git": "https://github.com/lisihao/dsh-purge.git"
     }
   },
   "publishConfig": {

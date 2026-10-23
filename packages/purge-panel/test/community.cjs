@@ -201,9 +201,14 @@ if (process.env.PANEL_CLIENT) {
   assert.equal(rewindSeat.spec.id, "dsh-purge-rewind");
   assert.equal(rewindSeat.spec.order, 20);
 }
-const railSeat = seats.find((x) => x.spec.name === "sidebar.panellist");
-assert(railSeat, "left rail entry is registered");
-assert.equal(railSeat.spec.id, "dsh-purge");
+assert(
+  !seats.some((x) => x.spec.name === "sidebar.panellist"),
+  "personal fork keeps the existing right-sidebar entry",
+);
+assert(
+  seats.some((x) => x.spec.name === "conversation.composer.dock"),
+  "environment guidance is scoped to the composer",
+);
 const pageSeat = seats.find((x) => x.spec.name === "main");
 assert(pageSeat, "full page is registered on the main slot");
 assert.equal(pageSeat.spec.key, "dsh-purge");

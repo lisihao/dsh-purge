@@ -1,3 +1,16 @@
+# 1.6.38-solar.1
+
+Personal fork of Community v1.6.38, maintained at https://github.com/lisihao/dsh-purge.
+
+- Move the environment reminder from the global overlay into the current conversation composer, with matching styles and a dismiss action / Escape. Dismiss does not skip configuration.
+- Clear stale reminders on session or preset change; the current preset wins over unrelated red-team labels.
+- Preserve the separately installed Purge right-sidebar adapter and omit a duplicate left entry.
+- Publish and check updates from this personal fork. No host patch or app rebuild is part of this fix.
+
+Validation: built-client regression fails on the original bundle and passes on this repair; community and standalone panel tests, build freshness, docs and package smoke checked. Installed-app acceptance is recorded in the delivery receipt. Full macOS fixture results are reported separately from the UI acceptance.
+
+---
+
 # 1.6.38
 
 - #44 / PR #47：正式发行包下载预算独立配置，默认 180 秒；增加默认关闭的 URL 前缀镜像。镜像只传输 TGZ，SHA256 来自官方渠道，令牌不发给镜像。下载或校验失败不再触发安装回滚。

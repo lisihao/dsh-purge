@@ -23,6 +23,7 @@ jobs:
       - run: npm run check:client
       - run: npm pack --ignore-scripts && node scripts/smoke.mjs
       - run: npm run test:ui
+      - run: npm run test:env-gate
       - run: npm --prefix packages/purge-panel run format:check
       - run: npm --prefix packages/purge-panel test
       - run: node --check lib/index.js && node --check lib/core.js && node --check lib/reapply.js && node --input-type=module -e "import './lib/index.js'"
